@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WaitingForHyrule — Compte à rebours Zelda</title>
+<meta name="description" content="Countdown to Nintendo Switch 2 Zelda 40th Anniversary Edition and The Legend of Zelda: Ocarina of Time remake.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpolygon points='50,10 90,80 10,80' fill='%23c9a227'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-0:#0a0f14;
+    --bg-1:#0f1c22;
+    --bg-2:#132a28;
+    --gold:#c9a227;
+    --gold-bright:#e6c453;
+    --teal:#3f7a68;
+    --parchment:#ece3cd;
+    --ink:#0a0f14;
+    --muted:#8fa3a0;
+    --line:rgba(201,162,39,0.25);
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(ellipse at 20% -10%, rgba(63,122,104,0.25), transparent 55%),
+      radial-gradient(ellipse at 85% 0%, rgba(201,162,39,0.12), transparent 45%),
+      linear-gradient(180deg, var(--bg-0), var(--bg-1) 40%, var(--bg-2));
+    background-attachment:fixed;
+    color:var(--parchment);
+    font-family:'Work Sans', sans-serif;
+    font-weight:400;
+    min-height:100vh;
+    overflow-x:hidden;
+  }
+
+  /* subtle star field */
+  .stars{
+    position:fixed; inset:0; z-index:0; pointer-events:none; opacity:0.5;
+    background-image:
+      radial-gradient(1.5px 1.5px at 20px 30px, #fff, transparent),
+      radial-gradient(1px 1px at 120px 90px, #fff, transparent),
+      radial-gradient(1.5px 1.5px at 220px 40px, #fff, transparent),
+      radial-gradient(1px 1px at 320px 130px, #fff, transparent),
+      radial-gradient(1.5px 1.5px at 60px 170px, #fff, transparent),
+      radial-gradient(1px 1px at 400px 60px, #fff, transparent);
+    background-repeat:repeat;
+    background-size:440px 220px;
+  }
+
+  .wrap{position:relative; z-index:1; max-width:1080px; margin:0 auto; padding:0 24px 80px;}
+
+  header{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:28px 0 10px; gap:16px; flex-wrap:wrap;
+    border-bottom:1px solid var(--line);
+  }
+  .brand{display:flex; align-items:center; gap:12px;}
+  .tri{width:26px; height:26px; flex:none;}
+  .brand-name{
+    font-family:'Cinzel', serif; font-weight:700; letter-spacing:0.04em;
+    font-size:1.15rem; color:var(--gold-bright);
+  }
+  .lang-toggle{display:flex; border:1px solid var(--line); border-radius:999px; overflow:hidden;}
+  .lang-toggle button{
+    background:transparent; border:none; color:var(--muted); font-family:'Work Sans',sans-serif;
+    font-size:0.85rem; padding:8px 16px; cursor:pointer; transition:background .2s, color .2s;
+  }
+  .lang-toggle button.active{background:var(--gold); color:var(--ink); font-weight:600;}
+
+  .hero{padding:64px 0 40px; text-align:center;}
+  .hero h1{
+    font-family:'Cinzel', serif; font-weight:900; font-size:clamp(2rem, 5vw, 3.4rem);
+    line-height:1.15; margin:0 0 18px; color:var(--parchment);
+    text-shadow:0 0 30px rgba(201,162,39,0.25);
+  }
+  .hero h1 em{font-style:normal; color:var(--gold-bright);}
+  .hero p{
+    max-width:560px; margin:0 auto; color:var(--muted); font-size:1.02rem; line-height:1.6;
+  }
+
+  .divider{display:flex; align-items:center; justify-content:center; gap:14px; margin:44px 0 8px;}
+  .divider .line{height:1px; width:80px; background:linear-gradient(90deg, transparent, var(--gold), transparent);}
+  .divider .tri-sm{width:14px; height:14px;}
+
+  .cards{
+    display:grid; grid-template-columns:1fr 1fr; gap:28px; margin-top:36px;
+  }
+  @media (max-width:760px){ .cards{grid-template-columns:1fr;} }
+
+  .card{
+    background:linear-gradient(180deg, rgba(19,42,40,0.55), rgba(10,15,20,0.55));
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:32px 28px 30px;
+    position:relative;
+    overflow:hidden;
+  }
+  .card::before{
+    content:""; position:absolute; top:0; left:0; right:0; height:2px;
+    background:linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .eyebrow{
+    font-family:'Work Sans',sans-serif; font-size:0.78rem; letter-spacing:0.08em;
+    color:var(--teal); text-transform:none; margin:0 0 6px;
+  }
+  .card h2{
+    font-family:'Cinzel', serif; font-size:1.5rem; margin:0 0 4px; color:var(--gold-bright);
+    line-height:1.3;
+  }
+  .card .date-line{color:var(--muted); font-size:0.92rem; margin:0 0 26px;}
+
+  .timer{
+    display:grid; grid-template-columns:repeat(5, 1fr); gap:10px;
+  }
+  @media (max-width:420px){ .timer{grid-template-columns:repeat(3, 1fr); row-gap:16px;} }
+
+  .unit{text-align:center;}
+  .unit .num{
+    font-family:'Cinzel', serif; font-weight:700; font-size:clamp(1.4rem, 3.4vw, 2.1rem);
+    color:var(--parchment); display:block; line-height:1;
+    font-variant-numeric:tabular-nums;
+  }
+  .unit .lbl{
+    display:block; margin-top:8px; font-size:0.68rem; letter-spacing:0.06em;
+    color:var(--muted);
+  }
+
+  .released{
+    text-align:center; padding:20px 0;
+  }
+  .released .num{color:var(--gold-bright); font-family:'Cinzel',serif; font-size:1.3rem;}
+
+  footer{
+    margin-top:70px; padding-top:24px; border-top:1px solid var(--line);
+    text-align:center; color:var(--muted); font-size:0.82rem; line-height:1.7;
+  }
+  footer a{color:var(--teal);}
+
+  .fan-note{
+    max-width:640px; margin:0 auto 10px;
+  }
+</style>
+</head>
+<body>
+
+<div class="stars"></div>
+
+<div class="wrap">
+  <header>
+    <div class="brand">
+      <svg class="tri" viewBox="0 0 100 100"><polygon points="50,12 90,82 10,82" fill="none" stroke="#c9a227" stroke-width="6"/></svg>
+      <span class="brand-name">WaitingForHyrule</span>
+    </div>
+    <div class="lang-toggle" role="group" aria-label="Language">
+      <button id="btn-fr" class="active" onclick="setLang('fr')">FR</button>
+      <button id="btn-en" onclick="setLang('en')">EN</button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <h1 data-i18n="hero_title">Le compte à rebours vers <em>Hyrule</em> a commencé</h1>
+    <p data-i18n="hero_sub">Deux sorties majeures célèbrent les 40 ans de The Legend of Zelda sur Nintendo Switch 2. Voici le temps qu'il reste avant chacune.</p>
+  </section>
+
+  <div class="cards">
+    <div class="card" id="card-switch2">
+      <p class="eyebrow" data-i18n="edition_label">Édition console</p>
+      <h2 data-i18n="switch2_title">Nintendo Switch 2 — The Legend of Zelda, 40e anniversaire</h2>
+      <p class="date-line" data-i18n="switch2_date">Sortie le 29 octobre 2026</p>
+      <div class="timer" data-target="2026-10-29T00:00:00+01:00">
+        <div class="unit"><span class="num" data-u="months">–</span><span class="lbl" data-i18n="u_months">mois</span></div>
+        <div class="unit"><span class="num" data-u="weeks">–</span><span class="lbl" data-i18n="u_weeks">semaines</span></div>
+        <div class="unit"><span class="num" data-u="days">–</span><span class="lbl" data-i18n="u_days">jours</span></div>
+        <div class="unit"><span class="num" data-u="hours">–</span><span class="lbl" data-i18n="u_hours">heures</span></div>
+        <div class="unit"><span class="num" data-u="seconds">–</span><span class="lbl" data-i18n="u_seconds">secondes</span></div>
+      </div>
+    </div>
+
+    <div class="card" id="card-oot">
+      <p class="eyebrow" data-i18n="game_label">Jeu</p>
+      <h2 data-i18n="oot_title">The Legend of Zelda: Ocarina of Time (remake)</h2>
+      <p class="date-line" data-i18n="oot_date">Sortie le 5 novembre 2026</p>
+      <div class="timer" data-target="2026-11-05T00:00:00+01:00">
+        <div class="unit"><span class="num" data-u="months">–</span><span class="lbl" data-i18n="u_months">mois</span></div>
+        <div class="unit"><span class="num" data-u="weeks">–</span><span class="lbl" data-i18n="u_weeks">semaines</span></div>
+        <div class="unit"><span class="num" data-u="days">–</span><span class="lbl" data-i18n="u_days">jours</span></div>
+        <div class="unit"><span class="num" data-u="hours">–</span><span class="lbl" data-i18n="u_hours">heures</span></div>
+        <div class="unit"><span class="num" data-u="seconds">–</span><span class="lbl" data-i18n="u_seconds">secondes</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"><span class="line"></span><svg class="tri-sm" viewBox="0 0 100 100"><polygon points="50,12 90,82 10,82" fill="#c9a227"/></svg><span class="line"></span></div>
+
+  <footer>
+    <p class="fan-note" data-i18n="disclaimer">Site créé par un fan, non affilié à Nintendo. Dates de sortie européennes annoncées officiellement (susceptibles d'être modifiées par l'éditeur). Fuseau horaire : Paris (UTC+1/+2).</p>
+    <p data-i18n="credit">The Legend of Zelda est une marque de Nintendo.</p>
+  </footer>
+</div>
+
+<script>
+  const translations = {
+    fr: {
+      hero_title: 'Le compte à rebours vers <em>Hyrule</em> a commencé',
+      hero_sub: "Deux sorties majeures célèbrent les 40 ans de The Legend of Zelda sur Nintendo Switch 2. Voici le temps qu'il reste avant chacune.",
+      edition_label: 'Édition console',
+      switch2_title: 'Nintendo Switch 2 — The Legend of Zelda, 40e anniversaire',
+      switch2_date: 'Sortie le 29 octobre 2026',
+      game_label: 'Jeu',
+      oot_title: 'The Legend of Zelda: Ocarina of Time (remake)',
+      oot_date: 'Sortie le 5 novembre 2026',
+      u_months: 'mois', u_weeks: 'semaines', u_days: 'jours', u_hours: 'heures', u_seconds: 'secondes',
+      disclaimer: "Site créé par un fan, non affilié à Nintendo. Dates de sortie européennes annoncées officiellement (susceptibles d'être modifiées par l'éditeur). Fuseau horaire : Paris (UTC+1/+2).",
+      credit: 'The Legend of Zelda est une marque de Nintendo.',
+      released: "C'est sorti !"
+    },
+    en: {
+      hero_title: 'The countdown to <em>Hyrule</em> has begun',
+      hero_sub: "Two major releases celebrate the 40th anniversary of The Legend of Zelda on Nintendo Switch 2. Here's how long is left until each one.",
+      edition_label: 'Console edition',
+      switch2_title: 'Nintendo Switch 2 — The Legend of Zelda 40th Anniversary Edition',
+      switch2_date: 'Releases October 29, 2026',
+      game_label: 'Game',
+      oot_title: 'The Legend of Zelda: Ocarina of Time (remake)',
+      oot_date: 'Releases November 5, 2026',
+      u_months: 'months', u_weeks: 'weeks', u_days: 'days', u_hours: 'hours', u_seconds: 'seconds',
+      disclaimer: 'Fan-made site, not affiliated with Nintendo. Officially announced European release dates (subject to change by the publisher). Timezone: Paris (UTC+1/+2).',
+      credit: 'The Legend of Zelda is a trademark of Nintendo.',
+      released: 'Released!'
+    }
+  };
+
+  let currentLang = 'fr';
+
+  function setLang(lang){
+    currentLang = lang;
+    document.documentElement.lang = lang;
+    document.getElementById('btn-fr').classList.toggle('active', lang === 'fr');
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (translations[lang][key] !== undefined) el.innerHTML = translations[lang][key];
+    });
+    try { localStorage.setItem('hc_lang', lang); } catch(e) {}
+  }
+
+  function detectInitialLang(){
+    try {
+      const saved = localStorage.getItem('hc_lang');
+      if (saved) return saved;
+    } catch(e) {}
+    return navigator.language && navigator.language.toLowerCase().startsWith('fr') ? 'fr' : 'en';
+  }
+
+  function diffToParts(target){
+    const now = new Date();
+    if (now >= target) return null;
+
+    // months: count complete calendar months between now and target
+    let months = (target.getFullYear() - now.getFullYear()) * 12 + (target.getMonth() - now.getMonth());
+    let cursor = new Date(now);
+    cursor.setMonth(cursor.getMonth() + months);
+    if (cursor > target) { months -= 1; cursor = new Date(now); cursor.setMonth(cursor.getMonth() + months); }
+
+    let remainMs = target - cursor;
+    const msWeek = 7*24*3600*1000, msDay = 24*3600*1000, msHour = 3600*1000;
+
+    const weeks = Math.floor(remainMs / msWeek); remainMs -= weeks*msWeek;
+    const days = Math.floor(remainMs / msDay); remainMs -= days*msDay;
+    const hours = Math.floor(remainMs / msHour); remainMs -= hours*msHour;
+    const seconds = Math.floor(remainMs / 1000);
+
+    return { months, weeks, days, hours, seconds };
+  }
+
+  function pad(n){ return n.toString().padStart(2,'0'); }
+
+  function tick(){
+    document.querySelectorAll('.timer').forEach(timer => {
+      const target = new Date(timer.getAttribute('data-target'));
+      const parts = diffToParts(target);
+      if (!parts){
+        if (!timer.dataset.done){
+          timer.dataset.done = '1';
+          timer.innerHTML = '<div class="released"><span class="num">' + translations[currentLang].released + '</span></div>';
+        }
+        return;
+      }
+      timer.querySelector('[data-u="months"]').textContent = parts.months;
+      timer.querySelector('[data-u="weeks"]').textContent = parts.weeks;
+      timer.querySelector('[data-u="days"]').textContent = parts.days;
+      timer.querySelector('[data-u="hours"]').textContent = pad(parts.hours);
+      timer.querySelector('[data-u="seconds"]').textContent = pad(parts.seconds);
+    });
+  }
+
+  setLang(detectInitialLang());
+  tick();
+  setInterval(tick, 1000);
+</script>
+
+</body>
+</html>
