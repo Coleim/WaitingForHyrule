@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WaitingForHyrule — Compte à rebours Zelda</title>
+<title>WaitingForHyrule : Compte à rebours Zelda</title>
 <meta name="description" content="Countdown to Nintendo Switch 2 Zelda 40th Anniversary Edition and The Legend of Zelda: Ocarina of Time remake.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpolygon points='50,10 90,80 10,80' fill='%23c9a227'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -135,6 +135,93 @@
   }
   .released .num{color:var(--gold-bright); font-family:'Cinzel',serif; font-size:1.3rem;}
 
+  .totals-divider{
+    display:flex; align-items:center; gap:12px; margin:26px 0 20px;
+  }
+  .totals-divider .tline{height:1px; flex:1; background:linear-gradient(90deg, transparent, var(--gold), transparent);}
+  .totals-divider .tlabel{
+    font-size:0.68rem; letter-spacing:0.08em; color:var(--muted); white-space:nowrap;
+  }
+
+  .totals{
+    display:grid; grid-template-columns:repeat(3, 1fr); gap:12px;
+  }
+  @media (max-width:420px){ .totals{grid-template-columns:1fr;} }
+
+  .total-card{
+    background:rgba(255,255,255,0.04);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:16px 12px;
+    text-align:center;
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+  }
+  .total-card svg{width:18px; height:18px; margin-bottom:8px; opacity:0.85;}
+  .total-card .total-num{
+    display:block; font-family:'Cinzel', serif; font-weight:700;
+    font-size:clamp(1.05rem, 2.6vw, 1.35rem); color:var(--parchment);
+    font-variant-numeric:tabular-nums; line-height:1.1;
+    transition:transform .18s ease, color .18s ease;
+  }
+  .total-card .total-lbl{
+    display:block; margin-top:6px; font-size:0.66rem; letter-spacing:0.05em; color:var(--muted);
+  }
+  .total-card.pulse .total-num{
+    color:var(--gold-bright);
+    transform:scale(1.06);
+  }
+  @media (prefers-reduced-motion: reduce){
+    .total-card .total-num{ transition:none; }
+  }
+
+  .card-img-wrap{
+    margin-top:24px; border-radius:14px; overflow:hidden;
+    aspect-ratio:1/1; position:relative;
+    border:1px solid var(--line);
+  }
+  .card-img-wrap img{
+    width:100%; height:100%; object-fit:cover; display:block;
+    transition:transform .35s ease;
+  }
+  .card-img-wrap::after{
+    content:""; position:absolute; inset:0; pointer-events:none;
+    background:linear-gradient(180deg, transparent 60%, rgba(10,15,20,0.55) 100%);
+  }
+  .card-img-wrap:hover img{ transform:scale(1.03); }
+  @media (prefers-reduced-motion: reduce){
+    .card-img-wrap img{ transition:none; }
+    .card-img-wrap:hover img{ transform:none; }
+  }
+
+  .lang-toggle button:focus-visible,
+  #btn-fr:focus-visible, #btn-en:focus-visible{
+    outline:2px solid var(--gold-bright); outline-offset:2px;
+  }
+
+  .banner{
+    margin-top:28px;
+    border-radius:14px;
+    overflow:hidden;
+    border:1px solid var(--line);
+    position:relative;
+    -webkit-mask-image:linear-gradient(180deg, transparent 0, #000 10%, #000 90%, transparent 100%);
+    mask-image:linear-gradient(180deg, transparent 0, #000 10%, #000 90%, transparent 100%);
+  }
+  .banner img{
+    width:100%; height:auto; display:block;
+    max-height:340px; object-fit:cover;
+  }
+  .banner::after{
+    content:""; position:absolute; inset:0; pointer-events:none;
+    background:
+      linear-gradient(180deg, rgba(10,15,20,0.35) 0%, transparent 18%, transparent 82%, rgba(10,15,20,0.55) 100%),
+      linear-gradient(90deg, rgba(10,15,20,0.25) 0%, transparent 12%, transparent 88%, rgba(10,15,20,0.25) 100%);
+  }
+  @media (max-width:600px){
+    .banner img{ max-height:200px; }
+  }
+
   footer{
     margin-top:70px; padding-top:24px; border-top:1px solid var(--line);
     text-align:center; color:var(--muted); font-size:0.82rem; line-height:1.7;
@@ -162,6 +249,10 @@
     </div>
   </header>
 
+  <div class="banner">
+    <img src="40yearsZelda.jpg" alt="The Legend of Zelda 40th Anniversary" loading="lazy" decoding="async">
+  </div>
+
   <section class="hero">
     <h1 data-i18n="hero_title">Le compte à rebours vers <em>Hyrule</em> a commencé</h1>
     <p data-i18n="hero_sub">Deux sorties majeures célèbrent les 40 ans de The Legend of Zelda sur Nintendo Switch 2. Voici le temps qu'il reste avant chacune.</p>
@@ -170,7 +261,7 @@
   <div class="cards">
     <div class="card" id="card-switch2">
       <p class="eyebrow" data-i18n="edition_label">Édition console</p>
-      <h2 data-i18n="switch2_title">Nintendo Switch 2 — The Legend of Zelda, 40e anniversaire</h2>
+      <h2 data-i18n="switch2_title">Nintendo Switch 2 : The Legend of Zelda, 40e anniversaire</h2>
       <p class="date-line" data-i18n="switch2_date">Sortie le 29 octobre 2026</p>
       <div class="timer" data-target="2026-10-29T00:00:00+01:00">
         <div class="unit"><span class="num" data-u="months">–</span><span class="lbl" data-i18n="u_months">mois</span></div>
@@ -178,6 +269,29 @@
         <div class="unit"><span class="num" data-u="days">–</span><span class="lbl" data-i18n="u_days">jours</span></div>
         <div class="unit"><span class="num" data-u="hours">–</span><span class="lbl" data-i18n="u_hours">heures</span></div>
         <div class="unit"><span class="num" data-u="seconds">–</span><span class="lbl" data-i18n="u_seconds">secondes</span></div>
+      </div>
+
+      <div class="totals-divider"><span class="tline"></span><span class="tlabel" data-i18n="totals_label">Totaux cumulés</span><span class="tline"></span></div>
+      <div class="totals">
+        <div class="total-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#c9a227" stroke-width="1.6"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></svg>
+          <span class="total-num" data-t="days">–</span>
+          <span class="total-lbl" data-i18n="total_days">jours restants</span>
+        </div>
+        <div class="total-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#c9a227" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+          <span class="total-num" data-t="hours">–</span>
+          <span class="total-lbl" data-i18n="total_hours">heures restantes</span>
+        </div>
+        <div class="total-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#c9a227" stroke-width="1.6"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg>
+          <span class="total-num" data-t="seconds">–</span>
+          <span class="total-lbl" data-i18n="total_seconds">secondes restantes</span>
+        </div>
+      </div>
+
+      <div class="card-img-wrap">
+        <img src="switch2.png" alt="Nintendo Switch 2 — The Legend of Zelda 40th Anniversary Edition" loading="lazy" decoding="async">
       </div>
     </div>
 
@@ -191,6 +305,29 @@
         <div class="unit"><span class="num" data-u="days">–</span><span class="lbl" data-i18n="u_days">jours</span></div>
         <div class="unit"><span class="num" data-u="hours">–</span><span class="lbl" data-i18n="u_hours">heures</span></div>
         <div class="unit"><span class="num" data-u="seconds">–</span><span class="lbl" data-i18n="u_seconds">secondes</span></div>
+      </div>
+
+      <div class="totals-divider"><span class="tline"></span><span class="tlabel" data-i18n="totals_label">Totaux cumulés</span><span class="tline"></span></div>
+      <div class="totals">
+        <div class="total-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#c9a227" stroke-width="1.6"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></svg>
+          <span class="total-num" data-t="days">–</span>
+          <span class="total-lbl" data-i18n="total_days">jours restants</span>
+        </div>
+        <div class="total-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#c9a227" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+          <span class="total-num" data-t="hours">–</span>
+          <span class="total-lbl" data-i18n="total_hours">heures restantes</span>
+        </div>
+        <div class="total-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#c9a227" stroke-width="1.6"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg>
+          <span class="total-num" data-t="seconds">–</span>
+          <span class="total-lbl" data-i18n="total_seconds">secondes restantes</span>
+        </div>
+      </div>
+
+      <div class="card-img-wrap">
+        <img src="oot.png" alt="The Legend of Zelda: Ocarina of Time remake" loading="lazy" decoding="async">
       </div>
     </div>
   </div>
@@ -209,12 +346,14 @@
       hero_title: 'Le compte à rebours vers <em>Hyrule</em> a commencé',
       hero_sub: "Deux sorties majeures célèbrent les 40 ans de The Legend of Zelda sur Nintendo Switch 2. Voici le temps qu'il reste avant chacune.",
       edition_label: 'Édition console',
-      switch2_title: 'Nintendo Switch 2 — The Legend of Zelda, 40e anniversaire',
+      switch2_title: 'Nintendo Switch 2 : The Legend of Zelda, 40e anniversaire',
       switch2_date: 'Sortie le 29 octobre 2026',
       game_label: 'Jeu',
       oot_title: 'The Legend of Zelda: Ocarina of Time (remake)',
       oot_date: 'Sortie le 5 novembre 2026',
       u_months: 'mois', u_weeks: 'semaines', u_days: 'jours', u_hours: 'heures', u_seconds: 'secondes',
+      totals_label: 'Totaux cumulés',
+      total_days: 'jours restants', total_hours: 'heures restantes', total_seconds: 'secondes restantes',
       disclaimer: "Site créé par un fan, non affilié à Nintendo. Dates de sortie européennes annoncées officiellement (susceptibles d'être modifiées par l'éditeur). Fuseau horaire : Paris (UTC+1/+2).",
       credit: 'The Legend of Zelda est une marque de Nintendo.',
       released: "C'est sorti !"
@@ -223,12 +362,14 @@
       hero_title: 'The countdown to <em>Hyrule</em> has begun',
       hero_sub: "Two major releases celebrate the 40th anniversary of The Legend of Zelda on Nintendo Switch 2. Here's how long is left until each one.",
       edition_label: 'Console edition',
-      switch2_title: 'Nintendo Switch 2 — The Legend of Zelda 40th Anniversary Edition',
+      switch2_title: 'Nintendo Switch 2 : The Legend of Zelda 40th Anniversary Edition',
       switch2_date: 'Releases October 29, 2026',
       game_label: 'Game',
       oot_title: 'The Legend of Zelda: Ocarina of Time (remake)',
       oot_date: 'Releases November 5, 2026',
       u_months: 'months', u_weeks: 'weeks', u_days: 'days', u_hours: 'hours', u_seconds: 'seconds',
+      totals_label: 'Running totals',
+      total_days: 'days left', total_hours: 'hours left', total_seconds: 'seconds left',
       disclaimer: 'Fan-made site, not affiliated with Nintendo. Officially announced European release dates (subject to change by the publisher). Timezone: Paris (UTC+1/+2).',
       credit: 'The Legend of Zelda is a trademark of Nintendo.',
       released: 'Released!'
@@ -280,14 +421,34 @@
 
   function pad(n){ return n.toString().padStart(2,'0'); }
 
+  function diffToTotals(target){
+    const now = new Date();
+    const remainMs = target - now;
+    if (remainMs <= 0) return null;
+    const msDay = 24*3600*1000, msHour = 3600*1000;
+    return {
+      days: Math.floor(remainMs / msDay),
+      hours: Math.floor(remainMs / msHour),
+      seconds: Math.floor(remainMs / 1000)
+    };
+  }
+
+  function fmt(n){
+    return n.toLocaleString(currentLang === 'fr' ? 'fr-FR' : 'en-US');
+  }
+
   function tick(){
     document.querySelectorAll('.timer').forEach(timer => {
       const target = new Date(timer.getAttribute('data-target'));
       const parts = diffToParts(target);
+      const totals = document.querySelector('#' + timer.closest('.card').id + ' .totals');
       if (!parts){
         if (!timer.dataset.done){
           timer.dataset.done = '1';
           timer.innerHTML = '<div class="released"><span class="num">' + translations[currentLang].released + '</span></div>';
+          if (totals) totals.style.display = 'none';
+          const divider = timer.closest('.card').querySelector('.totals-divider');
+          if (divider) divider.style.display = 'none';
         }
         return;
       }
@@ -296,6 +457,18 @@
       timer.querySelector('[data-u="days"]').textContent = parts.days;
       timer.querySelector('[data-u="hours"]').textContent = pad(parts.hours);
       timer.querySelector('[data-u="seconds"]').textContent = pad(parts.seconds);
+
+      const tot = diffToTotals(target);
+      if (tot && totals){
+        totals.querySelector('[data-t="days"]').textContent = fmt(tot.days);
+        totals.querySelector('[data-t="hours"]').textContent = fmt(tot.hours);
+        const secEl = totals.querySelector('[data-t="seconds"]');
+        secEl.textContent = fmt(tot.seconds);
+        const secCard = secEl.closest('.total-card');
+        secCard.classList.remove('pulse');
+        void secCard.offsetWidth;
+        secCard.classList.add('pulse');
+      }
     });
   }
 
