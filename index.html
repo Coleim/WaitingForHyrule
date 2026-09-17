@@ -204,6 +204,35 @@
     outline:2px solid var(--gold-bright); outline-offset:2px;
   }
 
+  .share-row{
+    display:flex; align-items:center; gap:12px; margin-top:22px;
+  }
+  .share-row .share-label{
+    font-size:0.68rem; letter-spacing:0.06em; color:var(--muted); white-space:nowrap;
+  }
+  .share-row .share-btns{
+    display:flex; gap:8px;
+  }
+  .share-btn{
+    width:32px; height:32px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    background:rgba(255,255,255,0.04);
+    border:1px solid var(--line);
+    color:var(--parchment);
+    cursor:pointer;
+    transition:background .2s ease, border-color .2s ease, transform .18s ease;
+  }
+  .share-btn svg{ width:15px; height:15px; fill:currentColor; }
+  .share-btn:hover{
+    background:var(--gold); color:var(--ink); border-color:var(--gold);
+    transform:translateY(-2px);
+  }
+  .share-btn:focus-visible{ outline:2px solid var(--gold-bright); outline-offset:2px; }
+  @media (prefers-reduced-motion: reduce){
+    .share-btn{ transition:none; }
+    .share-btn:hover{ transform:none; }
+  }
+
   .banner{
     margin-top:20px;
     border-radius:14px;
@@ -301,6 +330,21 @@
           <span class="total-lbl" data-i18n="total_seconds">secondes restantes</span>
         </div>
       </div>
+
+      <div class="share-row">
+        <span class="share-label" data-i18n="share_label">Partager</span>
+        <div class="share-btns">
+          <button class="share-btn" type="button" aria-label="Share on X" onclick="shareTo('x','card-switch2')">
+            <svg viewBox="0 0 24 24"><path d="M18.9 2H22l-7.6 8.7L23.3 22h-7.1l-5.5-7.2L4.4 22H1.3l8.1-9.3L1 2h7.3l5 6.6L18.9 2Zm-1.2 18h1.9L7.4 4H5.4l12.3 16Z"/></svg>
+          </button>
+          <button class="share-btn" type="button" aria-label="Share on LinkedIn" onclick="shareTo('linkedin','card-switch2')">
+            <svg viewBox="0 0 24 24"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.48 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5ZM.5 8.5h4V23h-4V8.5Zm7.5 0h3.83v1.98h.05c.53-1 1.84-2.06 3.79-2.06 4.05 0 4.8 2.67 4.8 6.14V23h-4v-6.65c0-1.59-.03-3.63-2.21-3.63-2.22 0-2.56 1.73-2.56 3.52V23h-4V8.5Z"/></svg>
+          </button>
+          <button class="share-btn" type="button" aria-label="Share on Facebook" onclick="shareTo('facebook','card-switch2')">
+            <svg viewBox="0 0 24 24"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06C2 17.08 5.66 21.23 10.44 22v-7.02H7.9v-2.92h2.54V9.85c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.23.2 2.23.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.44 2.92h-2.34V22C18.34 21.23 22 17.08 22 12.06Z"/></svg>
+          </button>
+        </div>
+      </div>
     </div>
 
     <div class="card" id="card-oot">
@@ -340,6 +384,21 @@
           <span class="total-lbl" data-i18n="total_seconds">secondes restantes</span>
         </div>
       </div>
+
+      <div class="share-row">
+        <span class="share-label" data-i18n="share_label">Partager</span>
+        <div class="share-btns">
+          <button class="share-btn" type="button" aria-label="Share on X" onclick="shareTo('x','card-oot')">
+            <svg viewBox="0 0 24 24"><path d="M18.9 2H22l-7.6 8.7L23.3 22h-7.1l-5.5-7.2L4.4 22H1.3l8.1-9.3L1 2h7.3l5 6.6L18.9 2Zm-1.2 18h1.9L7.4 4H5.4l12.3 16Z"/></svg>
+          </button>
+          <button class="share-btn" type="button" aria-label="Share on LinkedIn" onclick="shareTo('linkedin','card-oot')">
+            <svg viewBox="0 0 24 24"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.48 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5ZM.5 8.5h4V23h-4V8.5Zm7.5 0h3.83v1.98h.05c.53-1 1.84-2.06 3.79-2.06 4.05 0 4.8 2.67 4.8 6.14V23h-4v-6.65c0-1.59-.03-3.63-2.21-3.63-2.22 0-2.56 1.73-2.56 3.52V23h-4V8.5Z"/></svg>
+          </button>
+          <button class="share-btn" type="button" aria-label="Share on Facebook" onclick="shareTo('facebook','card-oot')">
+            <svg viewBox="0 0 24 24"><path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06C2 17.08 5.66 21.23 10.44 22v-7.02H7.9v-2.92h2.54V9.85c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.23.2 2.23.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.44 2.92h-2.34V22C18.34 21.23 22 17.08 22 12.06Z"/></svg>
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -365,6 +424,14 @@
       u_months: 'mois', u_weeks: 'semaines', u_days: 'jours', u_hours: 'heures', u_seconds: 'secondes',
       totals_label: 'Totaux cumulés',
       total_days: 'jours restants', total_hours: 'heures restantes', total_seconds: 'secondes restantes',
+      share_label: 'Partager',
+      share_prefix: 'Il reste encore',
+      share_before: 'avant',
+      share_released: 'est disponible dès maintenant !',
+      share_unit_month: 'mois', share_unit_months: 'mois',
+      share_unit_week: 'semaine', share_unit_weeks: 'semaines',
+      share_unit_day: 'jour', share_unit_days: 'jours',
+      share_and: 'et',
       disclaimer: "Site créé par un fan, non affilié à Nintendo. Dates de sortie européennes annoncées officiellement (susceptibles d'être modifiées par l'éditeur). Fuseau horaire : Paris (UTC+1/+2).",
       credit: 'The Legend of Zelda est une marque de Nintendo.',
       released: "C'est sorti !"
@@ -381,6 +448,14 @@
       u_months: 'months', u_weeks: 'weeks', u_days: 'days', u_hours: 'hours', u_seconds: 'seconds',
       totals_label: 'Running totals',
       total_days: 'days left', total_hours: 'hours left', total_seconds: 'seconds left',
+      share_label: 'Share',
+      share_prefix: 'Only',
+      share_before: 'left until',
+      share_released: 'is available now!',
+      share_unit_month: 'month', share_unit_months: 'months',
+      share_unit_week: 'week', share_unit_weeks: 'weeks',
+      share_unit_day: 'day', share_unit_days: 'days',
+      share_and: 'and',
       disclaimer: 'Fan-made site, not affiliated with Nintendo. Officially announced European release dates (subject to change by the publisher). Timezone: Paris (UTC+1/+2).',
       credit: 'The Legend of Zelda is a trademark of Nintendo.',
       released: 'Released!'
@@ -446,6 +521,50 @@
 
   function fmt(n){
     return n.toLocaleString(currentLang === 'fr' ? 'fr-FR' : 'en-US');
+  }
+
+  function buildDurationText(months, weeks, days){
+    const t = translations[currentLang];
+    const parts = [];
+    if (months > 0) parts.push(months + ' ' + (months > 1 ? t.share_unit_months : t.share_unit_month));
+    if (weeks > 0) parts.push(weeks + ' ' + (weeks > 1 ? t.share_unit_weeks : t.share_unit_week));
+    if (days > 0 || parts.length === 0) parts.push(days + ' ' + (days > 1 || days === 0 ? t.share_unit_days : t.share_unit_day));
+
+    if (parts.length === 1) return parts[0];
+    const last = parts.pop();
+    return parts.join(', ') + ' ' + t.share_and + ' ' + last;
+  }
+
+  function buildShareText(cardId){
+    const card = document.getElementById(cardId);
+    const t = translations[currentLang];
+    const title = card.querySelector('h2').textContent.trim();
+    const timer = card.querySelector('.timer');
+    const target = new Date(timer.getAttribute('data-target'));
+    const parts = diffToParts(target);
+
+    if (!parts){
+      return title + ' ' + t.share_released;
+    }
+    const duration = buildDurationText(parts.months, parts.weeks, parts.days);
+    return t.share_prefix + ' ' + duration + ' ' + t.share_before + ' ' + title + ' !';
+  }
+
+  function shareTo(network, cardId){
+    const siteUrl = 'https://coleim.github.io/WaitingForHyrule/';
+    const text = buildShareText(cardId);
+    let shareUrl = '';
+
+    if (network === 'x'){
+      shareUrl = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(text) + '&url=' + encodeURIComponent(siteUrl);
+    } else if (network === 'linkedin'){
+      shareUrl = 'https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(siteUrl);
+    } else if (network === 'facebook'){
+      shareUrl = 'https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(siteUrl) + '&quote=' + encodeURIComponent(text);
+    } else {
+      return;
+    }
+    window.open(shareUrl, '_blank', 'noopener,noreferrer,width=600,height=600');
   }
 
   function tick(){
